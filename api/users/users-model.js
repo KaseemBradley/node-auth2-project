@@ -60,6 +60,13 @@ function findById(user_id) {
       "role_name": "instructor"
     }
    */
+  return db("users as u")
+    .select("u.user_id", "u.username", "r.role_name")
+    .leftJoin("roles as r", "u.role_id", "r.role_id")
+    .where("u.user_id", user_id)
+    .then((user) => {
+      return user[0];
+    });
 }
 
 /**
