@@ -37,6 +37,16 @@ function findBy(filter) {
       }
     ]
    */
+  if (!filter) {
+    return null;
+  } else {
+    return db("users as u")
+      .leftJoin("roles as r", "u.role_id", "r.role_id")
+      .where(filter)
+      .then((user) => {
+        return user;
+      });
+  }
 }
 
 function findById(user_id) {
