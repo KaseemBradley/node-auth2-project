@@ -44,6 +44,14 @@ const only = (role_name) => (req, res, next) => {
 
     Pull the decoded token from the req object, to avoid verifying it again!
   */
+  const valid = Boolean(
+    req.decodedToken.role_name && req.decodedToken.role_name === role_name
+  );
+  if (valid) {
+    next();
+  } else {
+    res.status(403).json({ message: "this is not for you" });
+  }
 };
 
 const checkUsernameExists = (req, res, next) => {
